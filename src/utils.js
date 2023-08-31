@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/tobibeer/plantuml/utils.js
+title: $:/plugins/m42e/plantuml/utils.js
 type: application/javascript
 module-type: utils
 
@@ -28,10 +28,9 @@ encodePlantUML: function(src, type) {
 			// Do editing?
 			type === "edit" ?
 			// Take edit url
-
-		  $tw.wiki.getTextReference("$:/plugins/tobibeer/plantuml/edit-url") :
+		  $tw.wiki.getTextReference("$:/plugins/m42e/plantuml/edit-url") :
 			// Viewing?
-		  $tw.wiki.getTextReference("$:/plugins/tobibeer/plantuml/server-url") + type + "/"
+		  $tw.wiki.getTextReference("$:/plugins/m42e/plantuml/server-url") + type + "/"
 		) +
 			// Encode the...
 			this.encode64(

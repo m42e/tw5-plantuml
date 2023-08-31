@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/tobibeer/plantuml/widget.js
+title: $:/plugins/m42e/plantuml/widget.js
 type: application/javascript
 module-type: widget
 
@@ -174,7 +174,7 @@ PlantUMLWidget.prototype.render = function(parent,nextSibling) {
 			// Add text
 			link.children = [{
 				type: "text",
-				text: this.wiki.getTextReference("$:/plugins/tobibeer/plantuml/lingo/edit-link") + (
+				text: this.wiki.getTextReference("$:/plugins/m42e/plantuml/lingo/edit-link") + (
 					node.attributes.tooltip ? node.attributes.tooltip.value : ""
 				)
 			}];
@@ -207,7 +207,7 @@ PlantUMLWidget.prototype.execute = function() {
 	// No edit attribute defined?
 	if(this.edit === undefined) {
 		// Get edit from global defaults
-		this.edit = this.wiki.getTextReference("$:/plugins/tobibeer/plantuml/defaults/edit");
+		this.edit = this.wiki.getTextReference("$:/plugins/m42e/plantuml/defaults/edit");
 	}
 	// Set to true if editing is enabled
 	this.edit = ["yes","true"].indexOf((this.edit||"").toLowerCase()) >= 0;

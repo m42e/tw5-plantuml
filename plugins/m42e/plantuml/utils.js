@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/tobibeer/plantuml/utils.js
+title: $:/plugins/m42e/plantuml/utils.js
 type: application/javascript
 module-type: utils
 

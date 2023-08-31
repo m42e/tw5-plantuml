@@ -15,4 +15,4 @@ These css classes are created by the [[widget|plantuml-Widget]]:
 ; tc-plantuml-edit
 : class added to the edit link being the image or a link placed before an iframe for text output
 
-The default css that comes with <<tb plantuml>> is defined in <<source "$:/plugins/tobibeer/plantuml/styles">>
+The default css that comes with <<tb plantuml>> is defined in <<source "$:/plugins/m42e/plantuml/styles">>

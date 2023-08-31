@@ -1,4 +1,4 @@
-title: $:/plugins/tobibeer/plantuml/
+title: $:/plugins/m42e/plantuml/
 
 defaults/edit: true
 lingo/edit: globally enable edit links for all output ("yes" or "true")

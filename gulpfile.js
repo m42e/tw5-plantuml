@@ -7,7 +7,7 @@ var gulp = require("gulp"),
 	gutil = require("gulp-util"),
 	clean = require('gulp-clean');
 	uglify = require("gulp-uglify"),
-	dest = "plugins/tobibeer/plantuml/";
+	dest = "plugins/m42e/plantuml/";
 
 /********************************************************************
 * Tasks

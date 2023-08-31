@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 
 {{plantuml-BETA}}
 
-The plugin $:/plugins/tobibeer/plantuml provides:
+The plugin $:/plugins/m42e/plantuml provides:
 
 ; `<$plantuml source="""plantuml code here"""/>`
 : a [[widget|plantuml-Widget]] to render [[PlantUML|http://plantuml.com]] diagrams __online__ as either image or text

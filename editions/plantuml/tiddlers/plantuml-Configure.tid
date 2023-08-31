@@ -9,7 +9,7 @@ type: text/vnd.tiddlywiki
 \define default()
 <dt>$(defaults)$$(option)$</dt>
 <dd>
-//{{$:/plugins/tobibeer/plantuml/lingo/$(option)$}}<$list
+//{{$:/plugins/m42e/plantuml/lingo/$(option)$}}<$list
 filter="[[$(option)$]prefix[template]]">
 {{$(defaults)$$(option)$}}</$list>://<br>
 <$edit-text tag=input tiddler="$(defaults)$$(option)$"/>
@@ -19,7 +19,7 @@ filter="[[$(option)$]prefix[template]]">
 You can set these global defaults / fallbacks:
 
 <dl class="plantuml-defaults">
-<$vars defaults="$:/plugins/tobibeer/plantuml/defaults/">
+<$vars defaults="$:/plugins/m42e/plantuml/defaults/">
 <$list filter="[all[tiddlers+shadows]removeprefix<defaults>sort[title]]" variable="option">
 <<default>>
 </$list>

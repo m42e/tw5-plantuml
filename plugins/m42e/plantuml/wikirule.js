@@ -1,5 +1,5 @@
 /*\
-title: $:/plugins/tobibeer/plantuml/wikirule.js
+title: $:/plugins/m42e/plantuml/wikirule.js
 type: application/javascript
 module-type: wikirule
 

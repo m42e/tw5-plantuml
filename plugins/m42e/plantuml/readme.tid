@@ -1,6 +1,6 @@
-title: $:/plugins/tobibeer/plantuml/readme
+title: $:/plugins/m42e/plantuml/readme
 
-The plugin $:/plugins/tobibeer/plantuml provides:
+The plugin $:/plugins/m42e/plantuml provides:
 
 ; `[[plantuml[<uml>]]]`
 : a widget to render [[PlantUML|http://plantuml.org]] diagrams online as either image or text
