@@ -19,7 +19,7 @@ Any content of the `<$plantuml>` widget is ignored.
 | !Attribute | !Description |
 |>|!~PlantUML Widget Specific Attributes |
 |''source''|required, the plantuml source markup |
-|''output''|optional, any of:<br>» `svg` (default) — embeds a svg<br>» `img` — embeds a png<br>» `txt` — embeds a text representation<br>» `src` — embeds the source in a codeblock|
+|''output''|optional, any of:<br>» `svg` (default) — embeds a svg as embedded element (with clickable links)<br>» `img` — embeds a png<br>» `txt` — embeds a text representation<br>» `src` — embeds the source in a codeblock|
 |''edit''|optional, if set to `yes` or `true`, turns the image to a clickable link to the [[PlantText.com|http://PlantText.com]] editor<br>» defaults to $:/plugins/m42e/plantuml/defaults/edit (<code>{{$:/plugins/m42e/plantuml/defaults/edit}}</code>) |
 |>|!Supported Core Image Widget Attributes |
 |''width''|The width of the image |

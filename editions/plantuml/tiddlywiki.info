@@ -1,9 +1,9 @@
 {
-    "description": "tobibeer/plantuml plugin",
+    "description": "m42e/plantuml plugin",
     "plugins": [
         "tiddlywiki/tiddlyweb",
         "tiddlywiki/filesystem",
-        "tobibeer/plantuml"
+        "m42e/plantuml"
     ],
     "themes": [
         "tiddlywiki/vanilla",

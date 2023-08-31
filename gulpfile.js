@@ -6,7 +6,6 @@
 var gulp = require("gulp"),
 	gutil = require("gulp-util"),
 	clean = require('gulp-clean');
-	uglify = require("gulp-uglify"),
 	dest = "plugins/m42e/plantuml/";
 
 /********************************************************************
@@ -28,7 +27,6 @@ gulp.task("build", ["clean"], function () {
 
 	// uglify js
 	gulp.src("src/**/*.js")
-		.pipe(uglify({ compress: false, preserveComments: "some" }))
 		.pipe(gulp.dest(dest));
 });
 
