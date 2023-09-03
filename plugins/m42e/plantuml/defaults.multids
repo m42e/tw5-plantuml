@@ -1,5 +1,7 @@
-title: $:/plugins/tobibeer/plantuml/
+title: $:/plugins/m42e/plantuml/
 
 defaults/edit: true
 lingo/edit: globally enable edit links for all output ("yes" or "true")
 lingo/edit-link: » edit: 
+edit-url: http://plantuml.pb42.de/edit/
+server-url: http://plantuml.pb42.de/

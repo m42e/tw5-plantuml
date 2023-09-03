@@ -1,12 +1,11 @@
 {
-    "title": "$:/plugins/tobibeer/plantuml",
-    "description": "Render plantuml diagrams online as image or text",
-    "author": "Tobias Beer",
-    "version": "0.5.0",
-    "core-version": ">=5.1.9",
-    "source": "https://github.com/tobibeer/tw5-plantuml",
-    "documentation": "https://tobibeer.github.io/tw5-plantuml",
-    "plugin-type": "plugin",
+  "title": "$:/plugins/m42e/plantuml",
+  "description": "Render plantuml diagrams online as image or text",
+  "author": "Matthias Bilger",
+  "version": "0.6.4",
+  "core-version": ">=5.2.2",
+  "source": "https://github.com/m42e/tw5-plantuml",
+  "plugin-type": "plugin",
 	"requires": "",
 	"list": "readme"
 }

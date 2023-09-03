@@ -1,21 +1,27 @@
 {
-    "description": "m42e/plantuml plugin",
-    "plugins": [
-        "tiddlywiki/tiddlyweb",
-        "tiddlywiki/filesystem",
-        "m42e/plantuml"
-    ],
-    "themes": [
-        "tiddlywiki/vanilla",
-        "tiddlywiki/snowwhite"
-    ],
-    "includeWikis": [
-        "../../../defaults/editions/defaults"
-    ],
-    "build": {
-        "index": [
-            "--output","../../",
-            "--rendertiddler","$:/plugins/tiddlywiki/tiddlyweb/save/offline","index.html","text/plain"
-        ]
-    }
+	"description": "Empty edition",
+	"plugins": [
+      "m42e/plantuml"
+	],
+	"themes": [
+		"tiddlywiki/vanilla",
+		"tiddlywiki/snowwhite"
+	],
+	"build": {
+		"index": [
+			"--render","$:/core/save/all","index.html","text/plain"],
+		"empty": [
+			"--render","$:/core/save/all","empty.html","text/plain",
+			"--render","$:/core/save/all","empty.hta","text/plain"],
+		"externalimages": [
+			"--savetiddlers","[is[image]]","images",
+			"--setfield","[is[image]]","_canonical_uri","$:/core/templates/canonical-uri-external-image","text/plain",
+			"--setfield","[is[image]]","text","","text/plain",
+			"--render","$:/core/save/all","externalimages.html","text/plain"],
+		"static": [
+			"--render","$:/core/templates/static.template.html","static.html","text/plain",
+			"--render","$:/core/templates/alltiddlers.template.html","alltiddlers.html","text/plain",
+			"--render","[!is[system]]","[encodeuricomponent[]addprefix[static/]addsuffix[.html]]","text/plain",			
+			"--render","$:/core/templates/static.template.css","static/static.css","text/plain"]
+	}
 }

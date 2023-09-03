@@ -7,4 +7,260 @@ A widget to render plantuml
 
 @preserve
 \*/
-(function(){"use strict";var t=require("$:/core/modules/widgets/widget.js").widget;var e=function(t,e){this.initialise(t,e)};e.prototype=new t;e.prototype.render=function(t,e){this.parentDomNode=t;this.computeAttributes();this.execute();var i,s,u,r,a=this.node,l=[],n=function(t){var e=t;while(e){if(e.nodeName&&(e.nodeName==="a"||e.nodeName==="button")){return 1}e=e.parentNode}return 0};switch(this.output){case"src":a.type="element";a.tag="pre";a.children=[{type:"text",text:this.source}];l.push(a);break;case"txt":a.type="element";a.tag="iframe";a.attributes.src={type:"string",value:$tw.utils.plantuml.encodePlantUML(this.source,this.output)};i=a.attributes["class"]?a.attributes["class"].value+" ":"";a.attributes["class"]={type:"string",value:i+"tc-plantuml-txt"};s=a.attributes.height?"height:"+a.attributes.height.value+";":"";r=a.attributes.width?"width:"+a.attributes.width.value+";":"";if(s||r){a.attributes.style={type:"string",value:s+r}}if(a.attributes.tooltip&&!this.edit){l.push({type:"element",tag:"div",attributes:{"class":{type:"string",value:"tc-plantuml-txt-title"}},children:[{type:"text",text:a.attributes.tooltip.value}]})}l.push(a);break;default:a.attributes.source={type:"string",value:$tw.utils.plantuml.encodePlantUML(this.source,this.output)};l.push(a)}if(this.edit&&!n(this.parentDomNode)){u={type:"element",tag:"a",attributes:{"class":{type:"string",value:"tc-plantuml-edit tc-tiddlylink-external"},target:{type:"string",value:"_blank"},href:{type:"string",value:$tw.utils.plantuml.encodePlantUML(this.source,"edit")}}};if(this.output==="txt"){u.children=[{type:"text",text:this.wiki.getTextReference("$:/plugins/m42e/plantuml/lingo/edit-link")+(a.attributes.tooltip?a.attributes.tooltip.value:"")}];l.unshift(u)}else{u.children=l;l=[u]}}this.makeChildWidgets(l);this.renderChildren(this.parentDomNode,e)};e.prototype.execute=function(){var t=this;this.source=this.getAttribute("source","");this.output=this.getAttribute("output","svg");this.edit=this.getAttribute("edit");if(this.edit===undefined){this.edit=this.wiki.getTextReference("$:/plugins/m42e/plantuml/defaults/edit")}this.edit=["yes","true"].indexOf((this.edit||"").toLowerCase())>=0;this.node={type:"image",attributes:{}};["width","height","class","tooltip","alt"].map(function(e){var i=t.getAttribute(e);if(i!==undefined){t.node.attributes[e]={type:"string",value:i}}})};e.prototype.refresh=function(){var t=this.computeAttributes();if(t.source||t.width||t.height||t["class"]||t.tooltip||t.output||t.edit){this.refreshSelf();return true}else{return false}};exports.plantuml=e})();
+(function(){
+
+/*jslint node: true, browser: true */
+/*global $tw: false */
+"use strict";
+
+var Widget = require("$:/core/modules/widgets/widget.js").widget;
+
+var PlantUMLWidget = function(parseTreeNode,options) {
+	this.initialise(parseTreeNode,options);
+};
+
+/*
+Inherit from the base widget class
+*/
+PlantUMLWidget.prototype = new Widget();
+
+/*
+Render this widget into the DOM
+*/
+PlantUMLWidget.prototype.render = function(parent,nextSibling) {
+	this.parentDomNode = parent;
+	this.computeAttributes();
+	this.execute();
+	var c,h,link,w,
+		// Reference to (image) node
+		node = this.node,
+		// Output parseTree nodes
+		nodes = [],
+		/*
+		Helper function to figure out if editing is allowed
+		*/
+		noClick = function(el) {
+			// Reference to domnode
+			var node = el;
+			// So long as we have parents
+			while(node) {
+				// Got a nodeName and it is
+				if(node.nodeName && (
+					// Either a link
+				 	node.nodeName === "a" ||
+					// Or a button
+					node.nodeName === "button"
+				)) {
+					// No editing allowed
+					return 1;
+				}
+				// Next parent
+				node = node.parentNode;
+			}
+			//If not inside any button or link, we're ok to edit
+			return 0;
+		};
+  let self = this;
+  value:$tw.utils.plantuml.encodePlantUML(this.source,this.output, function(encoded){
+    // Depending on output mode
+    switch(self.output) {
+      // Return source
+      case "src":
+        // Create codeblock
+        node.type = "element";
+        node.tag = "pre";
+        // Add source text
+        node.children = [{
+          type: "text",
+          text: self.source
+        }];
+        // Add to output
+        nodes.push(node);
+        break;
+      // Embed svg to be able to click links
+      case "svg":
+        // Create codeblock
+        node.type = "element";
+        node.tag = "embed";
+        // Set embedded source
+        node.attributes.src = {
+          type:"string",
+          // Encoding the source attribute depending on the specified type, e.g. svg or img
+          value:$tw.wiki.getTextReference("$:/plugins/m42e/plantuml/server-url") + self.output + "/" + encoded
+        };
+        // Add to output
+        nodes.push(node);
+        break;
+      // Render plantuml as text
+      case "txt":
+        // Create iframe
+        node.type = "element";
+        node.tag = "iframe";
+        // Add source attribute
+        node.attributes.src = {
+          type:"string",
+          // URI-encoded to txt
+          value:$tw.wiki.getTextReference("$:/plugins/m42e/plantuml/server-url") + self.output + "/" + encoded
+        };
+        // Get any defined classed
+        c = node.attributes["class"] ? node.attributes["class"].value + " " : "";
+        // Set class to
+        node.attributes["class"] = {
+          type:"string",
+          // Defined classes and iframe-text class
+          value: c + "tc-plantuml-txt"
+        };
+        // Get defined height
+        h = node.attributes.height ? "height:" + node.attributes.height.value + ";" : "";
+        // Get defined width
+        w = node.attributes.width ? "width:" + node.attributes.width.value + ";" : "";
+        // Got either height or width?
+        if(h||w) {
+          // Set style
+          node.attributes.style = {
+            type:"string",
+            // To defined height and/or width
+            value: h+w
+          };
+        }
+        // Got a tooltip? (and we're not editing? => will handle link creation itself)
+        if(node.attributes.tooltip && !self.edit) {
+          // Add div before iframe
+          nodes.push({
+            type:"element",
+            tag:"div",
+            // With a specific class
+            attributes: {
+              "class": {type:"string",value:"tc-plantuml-txt-title"}
+            },
+            // Add text-node
+            children: [{
+              type: "text",
+              // Being the tooltip
+              text: node.attributes.tooltip.value
+            }]
+          });
+        }
+        // Add iframe to nodes
+        nodes.push(node);
+        break;
+      // Image mode
+      default:
+        // Set image source
+        node.attributes.source = {
+          type:"string",
+          // Encoding the source attribute depending on the specified type, e.g. svg or img
+          value:$tw.utils.plantuml.encodePlantUML(self.source,self.output)
+        };
+        // Add image node to output
+        nodes.push(node);
+    }
+    // Enable edit and we're allowed to? (not inside another button or link)
+    if(self.edit && !noClick(self.parentDomNode)) {
+      // Create link
+      link = {
+        type: "element",
+        tag: "a",
+        // Set link attributes
+        attributes: {
+          // Link class
+          "class": {type:"string",value:"tc-plantuml-edit tc-tiddlylink-external"},
+          // New window
+          "target": {type:"string",value:"_blank"},
+          // Set href to URI-encoded edit-url
+          "href": {type:"string",value:$tw.wiki.getTextReference("$:/plugins/m42e/plantuml/edit-url") + "/" + encoded}
+          
+        }
+      };
+      // If iframe
+      if(self.output === "txt"){
+        // Add text
+        link.children = [{
+          type: "text",
+          text: self.wiki.getTextReference("$:/plugins/m42e/plantuml/lingo/edit-link") + (
+            node.attributes.tooltip ? node.attributes.tooltip.value : ""
+          )
+        }];
+        // Prepend link
+        nodes.unshift(link);
+      // Images or source
+      } else {
+        // Wrap in link
+        link.children = nodes;
+        nodes = [link];
+      }
+    }
+    // Construct the child widgets
+    self.makeChildWidgets(nodes);
+    // Render into the dom
+    self.renderChildren(self.parentDomNode,nextSibling);
+  });
+};
+
+/*
+Compute the internal state of the widget
+*/
+PlantUMLWidget.prototype.execute = function() {
+	var self = this;
+	// Read defined source
+	this.source = this.getAttribute("source","");
+	// Read defined output
+	this.output = this.getAttribute("output","svg");
+	// Create edit link?
+	this.edit = this.getAttribute("edit");
+	// No edit attribute defined?
+	if(this.edit === undefined) {
+		// Get edit from global defaults
+		this.edit = this.wiki.getTextReference("$:/plugins/m42e/plantuml/defaults/edit");
+	}
+	// Set to true if editing is enabled
+	this.edit = ["yes","true"].indexOf((this.edit||"").toLowerCase()) >= 0;
+	// Create image node
+	this.node = {
+		type: "image",
+		attributes: {}
+	};
+	// Loop image widget attributes
+	["width","height","class","tooltip","alt"].map(function(attr){
+		// Get attribute
+		var a = self.getAttribute(attr);
+		// Attribute defined?
+		if(a !== undefined) {
+			// Set attribute at image node
+			self.node.attributes[attr] = {
+				type: "string",
+				// To defined value
+				value: a
+			};
+		}
+	});
+};
+
+/*
+Selectively refreshes the widget if needed. Returns true if the widget or any of its children needed re-rendering
+*/
+PlantUMLWidget.prototype.refresh = function() {
+	// Compute changed attributes
+	var changedAttributes = this.computeAttributes();
+	// If any of these changed...
+	if(
+		changedAttributes.source ||
+		changedAttributes.width ||
+		changedAttributes.height ||
+		changedAttributes["class"] ||
+		changedAttributes.tooltip ||
+		changedAttributes.output ||
+		changedAttributes.edit
+	) {
+		// Refresh
+		this.refreshSelf();
+		return true;
+	} else {
+		return false;
+	}
+};
+
+// Export the widget
+exports.plantuml = PlantUMLWidget;
+
+})();

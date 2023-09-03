@@ -4,7 +4,8 @@ The plugin $:/plugins/m42e/plantuml provides:
 
 ; `[[plantuml[<uml>]]]`
 : a widget to render [[PlantUML|http://plantuml.org]] diagrams online as either image or text
-: allows the same attributes as <<x "Images in WikiText">>
+: allows the same attributes as <<x "Images in WikiText">>.
+: You can either use the default plantuml public server or a selfhosted one.
 
 <br>
 
